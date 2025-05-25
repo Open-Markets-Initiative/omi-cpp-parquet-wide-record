@@ -4,7 +4,9 @@ project(omi_parqet)
 
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(PCAP REQUIRED)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
+
+find_package(PCAP REQUIRED MODULE)
 find_package(Arrow REQUIRED)
 find_package(Parquet REQUIRED)
 
