@@ -1,5 +1,7 @@
 # Omi C++ Wide Record Parquet 
 
+[![Build](https://github.com/HooplaVEVO/omi-cpp-parquet-wide-record/actions/workflows/build.yml/badge.svg)](https://github.com/HooplaVEVO/omi-cpp-parquet-wide-record/actions/workflows/build.yml)
+
 Required:
 
 https://github.com/the-tcpdump-group/libpcap

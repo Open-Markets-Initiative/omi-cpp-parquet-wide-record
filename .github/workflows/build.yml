@@ -1,0 +1,39 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cmake \
+          libpcap-dev \
+          wget \
+          lsb-release \
+          ca-certificates \
+          apt-transport-https \
+          gnupg
+
+    - name: Install latest Arrow/Parquet for C++
+      run: |
+        # Ripped straight from Apache Arrow's documentation: https://arrow.apache.org/install/
+        sudo apt install -y -V ca-certificates lsb-release wget
+        wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+        sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
+        sudo apt update
+        sudo apt install -y -V libparquet-dev # For Apache Parquet C++
+
+    - name: Configure and Build
+      run: |
+        mkdir -p build
+        cd build
+        cmake ..
+        cmake --build .
+        # If no errors, the build is successful
